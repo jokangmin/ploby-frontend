@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #4F46E5;
+  --color-secondary: #F97316;
+
+  --color-ploby-100: #FFA69E;
+  --color-ploby-200: #FAF3DD;
+  --color-ploby-300: #B8F2E6;
+  --color-ploby-400: #AED9E0;
+  --color-ploby-500: #5E6472;
+
+  --font-sans: "Inter", sans-serif;
+}
+
+@font-face {
+    font-family: 'HakgyoansimDunggeunmisoTTF-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+.font-aggress-b {
+  font-family: 'HakgyoansimDunggeunmisoTTF-B', sans-serif;
+}
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
 }
