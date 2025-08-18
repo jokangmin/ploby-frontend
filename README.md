@@ -149,7 +149,6 @@ npm run start:dev
 ```
 
 ## 🔗 API 명세 (예시)
-
 ### **Auth**
 
   - `POST /auth/register`
