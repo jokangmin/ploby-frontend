@@ -21,7 +21,7 @@
   * **스타일링**: Tailwind CSS
   * **상태 관리**: Recoil
   * **데이터 페칭**: TanStack Query
-  * **기타**: Framer Motion, Axios
+  * **기타**: Framer Motion, Axios, next-themes
 
 ### **Backend**
 
