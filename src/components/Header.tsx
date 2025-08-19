@@ -1,13 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "../recoil/authAtom";
+//import { useRecoilValue } from "recoil";
+//import { isLoggedInState } from "../recoil/authAtom";
 //import JsonLd from "./JsonLd";
+import ThemeToggleButton from "./ThemeToggleButton";
+import { useTheme } from "next-themes";
 
 export default function Header() {
+  const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
   // 만약 이 컴포넌트에서 로그인 상태를 변경해야 한다면 useSetRecoilState나 useRecoilState를 사용
   //const isLoggedIn = useRecoilValue(isLoggedInState);
 
@@ -16,11 +20,21 @@ export default function Header() {
   //   logo: "https://www.your-ploby-site.com/penguin_logo.webp",
   //   name: "Ploby",
   // };
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const headerBgClass = theme === "dark" ? "bg-gray-400" : "bg-white";
 
   return (
     //<JsonLd data={siteMetadata} />
 
-    <header className="fixed top-0 w-full bg-white shadow-md p-4 z-50">
+    <header className={`fixed top-0 w-full shadow-md p-4 z-50 ${headerBgClass}`}>
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2" aria-label="Ploby 홈으로 이동">
           <Image
@@ -35,7 +49,7 @@ export default function Header() {
         <nav aria-label="메인 메뉴">
           <ul className="flex items-center gap-14">
             <li>
-              <Link href="/about">소개</Link>
+              <Link href="/message">메시지</Link>
             </li>
             <li>
               <Link href="/find-hobby">나의 취미 찾기</Link>
@@ -66,6 +80,10 @@ export default function Header() {
                 >
                 로그인
               </Link>
+            </li>
+            <li>
+              {/* 👇 생성한 테마 토글 버튼을 여기에 추가 */}
+              <ThemeToggleButton />
             </li>
           </ul>
         </nav>

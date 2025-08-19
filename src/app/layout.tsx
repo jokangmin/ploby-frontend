@@ -13,8 +13,8 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
-      <body className={clsx("bg-gray-50", fontClassName)}>
+    <html lang="ko" suppressHydrationWarning>
+      <body className={clsx(fontClassName)}>
         <Providers>
           <Header />
           <main className="min-h-screen">{children}</main>

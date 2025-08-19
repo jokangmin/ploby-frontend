@@ -20,6 +20,18 @@
     font-style: normal;
 }
 
+@layer base {
+  body {
+    /* 라이트 모드 기본값 */
+    @apply bg-ploby-200 text-gray-800;
+  }
+
+  .dark body {
+    /* 다크 모드 기본값 */
+    @apply bg-ploby-500 text-gray-50;
+  }
+}
+
 .font-aggress-b {
   font-family: 'HakgyoansimDunggeunmisoTTF-B', sans-serif;
 }
