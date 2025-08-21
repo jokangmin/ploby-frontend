@@ -38,7 +38,7 @@ export default function Header() {
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2" aria-label="Ploby 홈으로 이동">
           <Image
-            src="/penguin_logo.webp"
+            src="/images/icons/penguin_logo.webp"
             alt="Ploby Logo"
             width={30}
             height={30}
