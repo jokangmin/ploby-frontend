@@ -92,7 +92,6 @@ src/
   - `user_id` (FK → User.id)
   - `hobby_id` (FK → Hobby.id)
   - `content`
-  - `image_url`
   - `created_at`
   - `updated_at`
 
