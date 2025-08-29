@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 
 // 게시물 더미 데이터 타입
 type Post = {
@@ -25,6 +26,8 @@ const dummyPosts: Post[] = Array.from({ length: 100 }).map((_, idx) => ({
 
 export default function CommunityPage() {
   const router = useRouter();
+  const { theme } = useTheme();
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [visibleCount, setVisibleCount] = useState(16);
 
@@ -45,52 +48,62 @@ export default function CommunityPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 테마별 색상
+  const bgClass = theme === "dark" ? "bg-gray-900" : "bg-gray-50";
+  const cardBg = theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900";
+  const borderClass = theme === "dark" ? "border-gray-700" : "border-gray-200";
+  const hoverCard = theme === "dark" ? "hover:shadow-gray-700" : "hover:shadow-lg";
+
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className={`min-h-screen pt-20 transition-colors duration-300 ${bgClass}`}>
       {/* 상단 필터 영역 */}
-      <div className="sticky top-0 bg-white z-10 border-b px-6 py-3 flex gap-4 items-center">
-        <select className="border rounded-lg px-3 py-2 text-sm">
+      <div
+        className={`sticky top-0 z-10 px-6 py-3 flex gap-4 items-center border-b ${cardBg} ${borderClass}`}
+      >
+        <select className={`border rounded-lg px-3 py-2 text-sm ${borderClass} ${bgClass}`}>
           <option>전체 카테고리</option>
           <option>보드게임</option>
           <option>파티</option>
           <option>푸드</option>
           <option>취미</option>
         </select>
-        <select className="border rounded-lg px-3 py-2 text-sm">
+        <select className={`border rounded-lg px-3 py-2 text-sm ${borderClass} ${bgClass}`}>
           <option>전체 유형</option>
           <option>모집</option>
           <option>후기</option>
         </select>
-        <button className="ml-auto border rounded-lg px-4 py-2 text-sm hover:bg-gray-100">
+        <button className={`ml-auto border rounded-lg px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 ${borderClass}`}>
           최신순
         </button>
-        <button className="border rounded-lg px-4 py-2 text-sm hover:bg-gray-100">
+        <button className={`border rounded-lg px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 ${borderClass}`}>
           인기순
         </button>
       </div>
 
-      {/* 게시물 리스트 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            onClick={() => router.push(`/community/${post.id}`)}
-            className="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden transition"
-          >
-            <img src={post.thumbnail} alt={post.title} className="w-full h-40 object-cover" />
-            <div className="p-4">
-              <span className="text-xs text-ploby-100 font-semibold">{post.category}</span>
-              <h2 className="text-lg font-bold mt-1">{post.title}</h2>
-              <p className="text-sm text-gray-500 mt-1">{post.date}</p>
+      {/* 게시물 리스트 (가운데 정렬) */}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 max-w-[80%] mx-auto">
+          {posts.map((post) => (
+            <div
+              key={post.id}
+              onClick={() => router.push(`/community/${post.id}`)}
+              className={`cursor-pointer rounded-xl shadow-md overflow-hidden transition ${cardBg} ${hoverCard}`}
+            >
+              <img src={post.thumbnail} alt={post.title} className="w-full h-40 object-cover" />
+              <div className="p-4">
+                <span className="text-xs text-ploby-100 font-semibold">{post.category}</span>
+                <h2 className="text-lg font-bold mt-1">{post.title}</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{post.date}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* 게시물 작성 버튼 (FAB) */}
       <button
         onClick={() => router.push("/community/new")}
-        className="fixed bottom-6 right-6 bg-indigo-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-indigo-700 transition"
+        className="fixed bottom-6 right-6 bg-ploby-400 text-ploby-500 px-6 py-3 rounded-full shadow-lg hover:bg-ploby-300 transition"
       >
         + 글쓰기
       </button>
