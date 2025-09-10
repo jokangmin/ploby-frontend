@@ -23,6 +23,7 @@
   * **데이터 페칭**: TanStack Query
   * **기타**: Framer Motion, Axios, next-themes
 
+
 ### **Backend**
 
   * **프레임워크**: NestJS
